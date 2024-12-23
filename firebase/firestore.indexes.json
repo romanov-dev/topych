@@ -1,0 +1,60 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Notification",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "forUser",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "datetime",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "ParamValue",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "param",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "index",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "buyTimes",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "store",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "buyTimes",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
+}

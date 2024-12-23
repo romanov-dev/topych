@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "732669686611",
+    "project_id": "topic-romanov",
+    "storage_bucket": "topic-romanov.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732669686611:android:de774cd49fbd20d763e7a6",
+        "android_client_info": {
+          "package_name": "com.mycompany.topychmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrpzLD75RCx-cSD0z9p0zLVcwL3AayL-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
