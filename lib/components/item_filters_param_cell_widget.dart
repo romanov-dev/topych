@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:t_o_p_y_c_h_mobile/index.dart';
+
+import '../main/items_search_page/items_search_page_widget.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,19 +18,17 @@ class ItemFiltersParamCellWidget extends StatefulWidget {
   const ItemFiltersParamCellWidget({
     super.key,
     required this.param,
-    required this.filters,
+    required this.filterDataBuffer,
   });
 
   final DocumentReference? param;
-  final FilterTypeStruct? filters;
+  final FilterData filterDataBuffer;
 
   @override
-  State<ItemFiltersParamCellWidget> createState() =>
-      _ItemFiltersParamCellWidgetState();
+  State<ItemFiltersParamCellWidget> createState() => _ItemFiltersParamCellWidgetState();
 }
 
-class _ItemFiltersParamCellWidgetState
-    extends State<ItemFiltersParamCellWidget> {
+class _ItemFiltersParamCellWidgetState extends State<ItemFiltersParamCellWidget> {
   late ItemFiltersParamCellModel _model;
 
   @override
@@ -96,8 +98,7 @@ class _ItemFiltersParamCellWidgetState
                   ),
                 );
               }
-              List<ParamValueRecord> containerParamValueRecordList =
-                  snapshot.data!;
+              List<ParamValueRecord> containerParamValueRecordList = snapshot.data!;
 
               return Container(
                 decoration: BoxDecoration(),
@@ -105,17 +106,14 @@ class _ItemFiltersParamCellWidgetState
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Expanded(
                             child: Text(
                               containerParamRecord.name,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'involve',
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
@@ -130,28 +128,40 @@ class _ItemFiltersParamCellWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed(
-                                'itemFiltersParamPage',
-                                queryParameters: {
-                                  'param': serializeParam(
-                                    containerParamRecord,
-                                    ParamType.Document,
-                                  ),
-                                  'values': serializeParam(
-                                    containerParamValueRecordList,
-                                    ParamType.Document,
-                                    isList: true,
-                                  ),
-                                  'filters': serializeParam(
-                                    widget!.filters,
-                                    ParamType.DataStruct,
-                                  ),
-                                }.withoutNulls,
-                                extra: <String, dynamic>{
-                                  'param': containerParamRecord,
-                                  'values': containerParamValueRecordList,
-                                },
+                              // context.pushNamed(
+                              //   'itemFiltersParamPage',
+                              //   queryParameters: {
+                              //     'param': serializeParam(
+                              //       containerParamRecord,
+                              //       ParamType.Document,
+                              //     ),
+                              //     'values': serializeParam(
+                              //       containerParamValueRecordList,
+                              //       ParamType.Document,
+                              //       isList: true,
+                              //     ),
+                              //     'filters': serializeParam(
+                              //       widget!.filters,
+                              //       ParamType.DataStruct,
+                              //     ),
+                              //   }.withoutNulls,
+                              //   extra: <String, dynamic>{
+                              //     'param': containerParamRecord,
+                              //     'values': containerParamValueRecordList,
+                              //   },
+                              // );
+                              await Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => ItemFiltersParamPageWidget(
+                                      param: containerParamRecord,
+                                      values: containerParamValueRecordList,
+                                      filterData: widget.filterDataBuffer,
+                                    ),
+                                    fullscreenDialog: true
+                                ),
                               );
+                              setState(() {});
                             },
                             child: Container(
                               height: 32.0,
@@ -182,18 +192,15 @@ class _ItemFiltersParamCellWidgetState
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                           child: Builder(
                             builder: (context) {
-                              final valuesList =
-                                  containerParamValueRecordList.toList();
+                              final valuesList = containerParamValueRecordList.toList();
 
                               return Wrap(
                                 spacing: 8.0,
@@ -204,25 +211,25 @@ class _ItemFiltersParamCellWidgetState
                                 runAlignment: WrapAlignment.start,
                                 verticalDirection: VerticalDirection.down,
                                 clipBehavior: Clip.none,
-                                children: List.generate(valuesList.length,
-                                    (valuesListIndex) {
-                                  final valuesListItem =
-                                      valuesList[valuesListIndex];
+                                children: List.generate(valuesList.length, (valuesListIndex) {
+                                  final valuesListItem = valuesList[valuesListIndex];
                                   return InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (widget!.filters!.values
-                                          .contains(ParamValueStruct(
+                                      var value = ParamValueStruct(
                                         param: widget!.param,
                                         value: valuesListItem.value,
-                                      ))) {
-                                        context.safePop();
+                                      );
+
+                                      if (widget.filterDataBuffer.values.contains(value)) {
+                                        widget.filterDataBuffer.values.removeWhere((e) => e == value);
                                       } else {
-                                        context.safePop();
+                                        widget.filterDataBuffer.values.add(value);
                                       }
+                                      setState(() {});
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -230,20 +237,15 @@ class _ItemFiltersParamCellWidgetState
                                         Container(
                                           height: 42.0,
                                           decoration: BoxDecoration(
-                                            color: widget!.filters!.values
-                                                    .contains(ParamValueStruct(
+                                            color: widget.filterDataBuffer.values.contains(ParamValueStruct(
                                               param: widget!.param,
                                               value: valuesListItem.value,
                                             ))
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
+                                                ? FlutterFlowTheme.of(context).primary
                                                 : Colors.transparent,
-                                            borderRadius:
-                                                BorderRadius.circular(100.0),
+                                            borderRadius: BorderRadius.circular(100.0),
                                             border: Border.all(
-                                              color: widget!.filters!.values
-                                                      .contains(
-                                                          ParamValueStruct(
+                                              color: widget.filterDataBuffer.values.contains(ParamValueStruct(
                                                 param: widget!.param,
                                                 value: valuesListItem.value,
                                               ))
@@ -252,35 +254,22 @@ class _ItemFiltersParamCellWidgetState
                                             ),
                                           ),
                                           child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      20.0, 0.0, 20.0, 0.0),
+                                              padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                                               child: Text(
                                                 valuesListItem.value,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                       fontFamily: 'involve',
-                                                      color: widget!
-                                                              .filters!.values
-                                                              .contains(
-                                                                  ParamValueStruct(
+                                                      color: widget.filterDataBuffer.values.contains(ParamValueStruct(
                                                         param: widget!.param,
-                                                        value: valuesListItem
-                                                            .value,
+                                                        value: valuesListItem.value,
                                                       ))
                                                           ? Colors.white
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
+                                                          : FlutterFlowTheme.of(context).primaryText,
                                                       fontSize: 16.0,
                                                       letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                                      fontWeight: FontWeight.w600,
                                                       useGoogleFonts: false,
                                                     ),
                                               ),

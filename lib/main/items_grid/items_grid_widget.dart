@@ -52,6 +52,7 @@ class _ItemsGridWidgetState extends State<ItemsGridWidget> {
             final itemsList = widget!.items?.toList() ?? [];
 
             return GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

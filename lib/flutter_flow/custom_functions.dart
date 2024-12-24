@@ -58,5 +58,13 @@ String getExperienceString(
     str = five;
   }
 
-  return onlyStr ? "$str" : "$value $str";
+  return onlyStr ? str : "$value $str";
+}
+
+double getRatePercentage({required int fullLength, required int localLength}) {
+  double percentage = 0.0;
+  if (fullLength != 0 && localLength != 0) {
+    percentage = (localLength)/fullLength;
+  }
+  return percentage;
 }

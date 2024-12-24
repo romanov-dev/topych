@@ -26,7 +26,7 @@ class LoginPageModel extends FlutterFlowModel<LoginPageWidget> {
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
-  final textFieldMask = MaskTextInputFormatter(mask: '+# ### ### ## ##');
+  final textFieldMask = MaskTextInputFormatter(mask: '+7 ### ### ## ##');
   String? Function(BuildContext, String?)? textControllerValidator;
   // Model for GeneralButton component.
   late GeneralButtonModel generalButtonModel;

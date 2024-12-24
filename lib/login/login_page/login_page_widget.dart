@@ -85,14 +85,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 72.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 72.0),
                               child: Text(
                                 'TOPYCH',
                                 textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'involve',
                                       fontSize: 40.0,
                                       letterSpacing: 0.0,
@@ -102,14 +99,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 72.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 72.0),
                               child: Text(
                                 'Введите номер телефона',
                                 textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'involve',
                                       fontSize: 32.0,
                                       letterSpacing: 0.0,
@@ -121,13 +115,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             Align(
                               alignment: AlignmentDirectional(-1.0, 0.0),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 8.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 8.0),
                                 child: Text(
                                   'Номер телефона',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'involve',
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
@@ -138,8 +129,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 104.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 104.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -156,17 +146,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
+                                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
                                           fontFamily: 'involve',
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                     hintText: 'Введите',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
+                                    hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                                           fontFamily: 'involve',
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
@@ -187,16 +173,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
+                                        color: FlutterFlowTheme.of(context).error,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
+                                        color: FlutterFlowTheme.of(context).error,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
@@ -204,45 +188,32 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     filled: true,
                                     fillColor: Color(0xFFFAFAFA),
                                   ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'involve',
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
                                   keyboardType: TextInputType.number,
-                                  cursorColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  validator: _model.textControllerValidator
-                                      .asValidator(context),
+                                  cursorColor: FlutterFlowTheme.of(context).primaryText,
+                                  validator: _model.textControllerValidator.asValidator(context),
                                   inputFormatters: [_model.textFieldMask],
                                 ),
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 36.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 36.0),
                               child: wrapWithModel(
                                 model: _model.generalButtonModel,
                                 updateCallback: () => safeSetState(() {}),
                                 child: GeneralButtonWidget(
                                   title: 'Далее',
-                                  isActive: (_model.textController.text !=
-                                              null &&
-                                          _model.textController.text != '') &&
-                                      _model.policyChecked,
+                                  isActive: (_model.textController.text != null && _model.textController.text != '') && _model.policyChecked,
                                   onTap: () async {
-                                    final phoneNumberVal =
-                                        _model.textController.text;
-                                    if (phoneNumberVal == null ||
-                                        phoneNumberVal.isEmpty ||
-                                        !phoneNumberVal.startsWith('+')) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
+                                    final phoneNumberVal = _model.textController.text;
+                                    if (phoneNumberVal == null || phoneNumberVal.isEmpty || !phoneNumberVal.startsWith('+')) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
-                                          content: Text(
-                                              'Phone Number is required and has to start with +.'),
+                                          content: Text('Phone Number is required and has to start with +.'),
                                         ),
                                       );
                                       return;
@@ -269,22 +240,19 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 36.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 36.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        _model.policyChecked =
-                                            !_model.policyChecked;
+                                        _model.policyChecked = !_model.policyChecked;
                                         safeSetState(() {});
                                       },
                                       child: Container(
@@ -292,12 +260,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         height: 40.0,
                                         decoration: BoxDecoration(),
                                         child: Align(
-                                          alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                          alignment: AlignmentDirectional(0.0, 0.0),
                                           child: wrapWithModel(
                                             model: _model.generalCheckboxModel,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
+                                            updateCallback: () => safeSetState(() {}),
                                             child: GeneralCheckboxWidget(
                                               checked: _model.policyChecked,
                                             ),
@@ -308,81 +274,57 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                                       child: RichText(
-                                        textScaler:
-                                            MediaQuery.of(context).textScaler,
+                                        textScaler: MediaQuery.of(context).textScaler,
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
                                               text: 'Я прочитал и согласен с  ',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'involve',
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'involve',
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
+                                                  ),
                                             ),
                                             TextSpan(
-                                              text:
-                                                  'Правилами обработки персональных данных',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'involve',
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                              mouseCursor:
-                                                  SystemMouseCursors.click,
+                                              text: 'Правилами обработки персональных данных',
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'involve',
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                              mouseCursor: SystemMouseCursors.click,
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = () async {
-                                                  await launchURL(FFAppState()
-                                                      .privacyPolicyUrl);
+                                                  await launchURL(FFAppState().privacyPolicyUrl);
                                                 },
                                             ),
                                             TextSpan(
                                               text: ' и ',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'involve',
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'involve',
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
+                                                  ),
                                             ),
                                             TextSpan(
-                                              text:
-                                                  'Пользовательским соглашением',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'involve',
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                              mouseCursor:
-                                                  SystemMouseCursors.click,
+                                              text: 'Пользовательским соглашением',
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'involve',
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                              mouseCursor: SystemMouseCursors.click,
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = () async {
-                                                  await launchURL(FFAppState()
-                                                      .termsOfUseUrl);
+                                                  await launchURL(FFAppState().termsOfUseUrl);
                                                 },
                                             )
                                           ],
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                 fontFamily: 'involve',
                                                 letterSpacing: 0.0,
                                                 useGoogleFonts: false,

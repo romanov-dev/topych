@@ -15,8 +15,7 @@ class NotificationsPageWidget extends StatefulWidget {
   const NotificationsPageWidget({super.key});
 
   @override
-  State<NotificationsPageWidget> createState() =>
-      _NotificationsPageWidgetState();
+  State<NotificationsPageWidget> createState() => _NotificationsPageWidgetState();
 }
 
 class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
@@ -85,15 +84,13 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                         ),
                       );
                     }
-                    List<NotificationRecord> containerNotificationRecordList =
-                        snapshot.data!;
+                    List<NotificationRecord> containerNotificationRecordList = snapshot.data!;
 
                     return Container(
                       decoration: BoxDecoration(),
                       child: StreamBuilder<List<NewsRecord>>(
                         stream: queryNewsRecord(
-                          queryBuilder: (newsRecord) =>
-                              newsRecord.orderBy('dateTime', descending: true),
+                          queryBuilder: (newsRecord) => newsRecord.orderBy('dateTime', descending: true),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -110,8 +107,7 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                               ),
                             );
                           }
-                          List<NewsRecord> containerNewsRecordList =
-                              snapshot.data!;
+                          List<NewsRecord> containerNewsRecordList = snapshot.data!;
 
                           return Container(
                             decoration: BoxDecoration(),
@@ -122,30 +118,25 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                                   width: double.infinity,
                                   height: 38.0,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color: FlutterFlowTheme.of(context).secondaryBackground,
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Color(0xFFF5F5F5),
-                                        borderRadius:
-                                            BorderRadius.circular(6.0),
+                                        borderRadius: BorderRadius.circular(6.0),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Expanded(
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
                                               hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
+                                              highlightColor: Colors.transparent,
                                               onTap: () async {
                                                 _model.partActive = 0;
                                                 safeSetState(() {});
@@ -153,36 +144,18 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                                               child: Container(
                                                 height: double.infinity,
                                                 decoration: BoxDecoration(
-                                                  color: _model.partActive == 0
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          6.0),
+                                                  color: _model.partActive == 0 ? FlutterFlowTheme.of(context).primary : Colors.transparent,
+                                                  borderRadius: BorderRadius.circular(6.0),
                                                 ),
                                                 child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                  alignment: AlignmentDirectional(0.0, 0.0),
                                                   child: Text(
                                                     'Все',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                           fontFamily: 'involve',
-                                                          color: _model
-                                                                      .partActive ==
-                                                                  0
-                                                              ? Colors.white
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
+                                                          color: _model.partActive == 0 ? Colors.white : FlutterFlowTheme.of(context).primaryText,
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                          fontWeight: FontWeight.bold,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),
@@ -195,8 +168,7 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
                                               hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
+                                              highlightColor: Colors.transparent,
                                               onTap: () async {
                                                 _model.partActive = 1;
                                                 safeSetState(() {});
@@ -204,36 +176,18 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                                               child: Container(
                                                 height: double.infinity,
                                                 decoration: BoxDecoration(
-                                                  color: _model.partActive == 1
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          6.0),
+                                                  color: _model.partActive == 1 ? FlutterFlowTheme.of(context).primary : Colors.transparent,
+                                                  borderRadius: BorderRadius.circular(6.0),
                                                 ),
                                                 child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                  alignment: AlignmentDirectional(0.0, 0.0),
                                                   child: Text(
                                                     'Уведомления',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                           fontFamily: 'involve',
-                                                          color: _model
-                                                                      .partActive ==
-                                                                  1
-                                                              ? Colors.white
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
+                                                          color: _model.partActive == 1 ? Colors.white : FlutterFlowTheme.of(context).primaryText,
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                          fontWeight: FontWeight.bold,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),
@@ -246,8 +200,7 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
                                               hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
+                                              highlightColor: Colors.transparent,
                                               onTap: () async {
                                                 _model.partActive = 2;
                                                 safeSetState(() {});
@@ -255,36 +208,18 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                                               child: Container(
                                                 height: double.infinity,
                                                 decoration: BoxDecoration(
-                                                  color: _model.partActive == 2
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          6.0),
+                                                  color: _model.partActive == 2 ? FlutterFlowTheme.of(context).primary : Colors.transparent,
+                                                  borderRadius: BorderRadius.circular(6.0),
                                                 ),
                                                 child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                  alignment: AlignmentDirectional(0.0, 0.0),
                                                   child: Text(
                                                     'Новости',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                           fontFamily: 'involve',
-                                                          color: _model
-                                                                      .partActive ==
-                                                                  2
-                                                              ? Colors.white
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
+                                                          color: _model.partActive == 2 ? Colors.white : FlutterFlowTheme.of(context).primaryText,
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                          fontWeight: FontWeight.bold,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),
@@ -297,22 +232,78 @@ class _NotificationsPageWidgetState extends State<NotificationsPageWidget> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: ListView(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      children: [],
+                                if (containerNewsRecordList.isEmpty)
+                                  Expanded(
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(50.0, 0.0, 50.0, 10.0),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(0.0),
+                                              child: Image.asset(
+                                                'assets/images/strict-receiving-important-letter-or-email 1.png',
+                                                // width: 187.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'Нет уведомлений',
+                                                textAlign: TextAlign.center,
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'involve',
+                                                  fontSize: 24.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  useGoogleFonts: false,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
+                                                child: Text(
+                                                  'На данный момент у Вас нет уведомлений',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'involve',
+                                                    fontSize: 18.0,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
+                                if (containerNewsRecordList.isNotEmpty)
+                                  Expanded(
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                      ),
+                                      child: ListView(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        children: [],
+                                      ),
+                                    ),
+                                  ),
                               ],
                             ),
                           );

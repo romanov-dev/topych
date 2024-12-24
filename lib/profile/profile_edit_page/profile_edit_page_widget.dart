@@ -73,80 +73,76 @@ class _ProfileEditPageWidgetState extends State<ProfileEditPageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 8.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                           child: Text(
                             'Заполнить профиль',
-                            style: FlutterFlowTheme.of(context)
+                            style: FlutterFlowTheme
+                                .of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'involve',
-                                  fontSize: 26.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
-                                ),
+                              fontFamily: 'involve',
+                              fontSize: 26.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                              useGoogleFonts: false,
+                            ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 8.0, 24.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
                           child: Text(
                             'Можете заполнить имя пользователя и фотографию',
                             textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
+                            style: FlutterFlowTheme
+                                .of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'involve',
-                                  fontSize: 18.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                  useGoogleFonts: false,
-                                ),
+                              fontFamily: 'involve',
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
+                              useGoogleFonts: false,
+                            ),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 32.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              final selectedMedia =
-                                  await selectMediaWithSourceBottomSheet(
+                              final selectedMedia = await selectMediaWithSourceBottomSheet(
                                 context: context,
                                 maxWidth: 500.00,
                                 maxHeight: 500.00,
                                 imageQuality: 66,
                                 allowPhoto: true,
                               );
-                              if (selectedMedia != null &&
-                                  selectedMedia.every((m) => validateFileFormat(
-                                      m.storagePath, context))) {
-                                safeSetState(
-                                    () => _model.isDataUploading1 = true);
+                              if (selectedMedia != null && selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
+                                safeSetState(() => _model.isDataUploading1 = true);
                                 var selectedUploadedFiles = <FFUploadedFile>[];
 
                                 try {
                                   selectedUploadedFiles = selectedMedia
-                                      .map((m) => FFUploadedFile(
-                                            name: m.storagePath.split('/').last,
-                                            bytes: m.bytes,
-                                            height: m.dimensions?.height,
-                                            width: m.dimensions?.width,
-                                            blurHash: m.blurHash,
-                                          ))
+                                      .map((m) =>
+                                      FFUploadedFile(
+                                        name: m.storagePath
+                                            .split('/')
+                                            .last,
+                                        bytes: m.bytes,
+                                        height: m.dimensions?.height,
+                                        width: m.dimensions?.width,
+                                        blurHash: m.blurHash,
+                                      ))
                                       .toList();
                                 } finally {
                                   _model.isDataUploading1 = false;
                                 }
-                                if (selectedUploadedFiles.length ==
-                                    selectedMedia.length) {
+                                if (selectedUploadedFiles.length == selectedMedia.length) {
                                   safeSetState(() {
-                                    _model.uploadedLocalFile1 =
-                                        selectedUploadedFiles.first;
+                                    _model.uploadedLocalFile1 = selectedUploadedFiles.first;
                                   });
                                 } else {
                                   safeSetState(() {});
@@ -172,21 +168,39 @@ class _ProfileEditPageWidgetState extends State<ProfileEditPageWidget> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  if (currentUserPhoto != null &&
-                                      currentUserPhoto != '')
+                                  if (currentUserPhoto != null && currentUserPhoto != '')
                                     AuthUserStreamWidget(
-                                      builder: (context) => Container(
-                                        width: double.infinity,
-                                        height: double.infinity,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.network(
-                                          currentUserPhoto,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                      builder: (context) =>
+                                          Container(
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Image.network(
+                                              currentUserPhoto,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                    ),
+                                  if (_model.uploadedLocalFile1 != null &&
+                                      (_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false))
+                                    AuthUserStreamWidget(
+                                      builder: (context) =>
+                                          Container(
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Image.memory(
+                                              _model.uploadedLocalFile1.bytes ??
+                                                  Uint8List.fromList([]),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                     ),
                                   Align(
                                     alignment: AlignmentDirectional(1.0, 1.0),
@@ -206,120 +220,115 @@ class _ProfileEditPageWidgetState extends State<ProfileEditPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 24.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Align(
                                 alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 8.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 8.0),
                                   child: Text(
                                     'Имя пользователя',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: FlutterFlowTheme
+                                        .of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'involve',
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts: false,
-                                        ),
+                                      fontFamily: 'involve',
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: false,
+                                    ),
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                                 child: Container(
                                   width: double.infinity,
                                   child: TextFormField(
                                     controller: _model.textController,
                                     focusNode: _model.textFieldFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.textController',
-                                      Duration(milliseconds: 100),
-                                      () => safeSetState(() {}),
-                                    ),
+                                    onChanged: (_) =>
+                                        EasyDebounce.debounce(
+                                          '_model.textController',
+                                          Duration(milliseconds: 100),
+                                              () => safeSetState(() {}),
+                                        ),
                                     autofocus: false,
                                     textCapitalization: TextCapitalization.none,
                                     textInputAction: TextInputAction.done,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       isDense: true,
-                                      labelStyle: FlutterFlowTheme.of(context)
+                                      labelStyle: FlutterFlowTheme
+                                          .of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'involve',
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: false,
-                                          ),
+                                        fontFamily: 'involve',
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
                                       hintText: 'Введите',
-                                      hintStyle: FlutterFlowTheme.of(context)
+                                      hintStyle: FlutterFlowTheme
+                                          .of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'involve',
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: false,
-                                          ),
+                                        fontFamily: 'involve',
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
+                                          color: FlutterFlowTheme
+                                              .of(context)
                                               .error,
                                           width: 1.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
+                                          color: FlutterFlowTheme
+                                              .of(context)
                                               .error,
                                           width: 1.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       filled: true,
                                       fillColor: Color(0xFFFAFAFA),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
+                                    style: FlutterFlowTheme
+                                        .of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'involve',
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: false,
-                                        ),
+                                      fontFamily: 'involve',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
                                     maxLength: 100,
-                                    maxLengthEnforcement:
-                                        MaxLengthEnforcement.enforced,
-                                    buildCounter: (context,
-                                            {required currentLength,
-                                            required isFocused,
-                                            maxLength}) =>
-                                        null,
-                                    cursorColor: FlutterFlowTheme.of(context)
+                                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                                    buildCounter: (context, {required currentLength, required isFocused, maxLength}) => null,
+                                    cursorColor: FlutterFlowTheme
+                                        .of(context)
                                         .primaryText,
-                                    validator: _model.textControllerValidator
-                                        .asValidator(context),
+                                    validator: _model.textControllerValidator.asValidator(context),
                                   ),
                                 ),
                               ),
@@ -338,38 +347,29 @@ class _ProfileEditPageWidgetState extends State<ProfileEditPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          24.0, 10.0, 24.0, 24.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(24.0, 10.0, 24.0, 24.0),
                       child: wrapWithModel(
                         model: _model.generalButtonModel,
                         updateCallback: () => safeSetState(() {}),
                         child: GeneralButtonWidget(
                           title: 'Применить и продолжить',
-                          isActive: _model.textController.text != null &&
-                              _model.textController.text != '',
+                          isActive: _model.textController.text != null && _model.textController.text != '',
                           onTap: () async {
-                            if (_model.uploadedLocalFile1 != null &&
-                                (_model.uploadedLocalFile1.bytes?.isNotEmpty ??
-                                    false)) {
+                            if (_model.uploadedLocalFile1 != null && (_model.uploadedLocalFile1.bytes?.isNotEmpty ?? false)) {
                               {
-                                safeSetState(
-                                    () => _model.isDataUploading2 = true);
+                                safeSetState(() => _model.isDataUploading2 = true);
                                 var selectedUploadedFiles = <FFUploadedFile>[];
                                 var selectedMedia = <SelectedFile>[];
                                 var downloadUrls = <String>[];
                                 try {
-                                  selectedUploadedFiles = _model
-                                          .uploadedLocalFile1.bytes!.isNotEmpty
-                                      ? [_model.uploadedLocalFile1]
-                                      : <FFUploadedFile>[];
-                                  selectedMedia =
-                                      selectedFilesFromUploadedFiles(
+                                  selectedUploadedFiles =
+                                  _model.uploadedLocalFile1.bytes!.isNotEmpty ? [_model.uploadedLocalFile1] : <FFUploadedFile>[];
+                                  selectedMedia = selectedFilesFromUploadedFiles(
                                     selectedUploadedFiles,
                                   );
                                   downloadUrls = (await Future.wait(
                                     selectedMedia.map(
-                                      (m) async => await uploadData(
-                                          m.storagePath, m.bytes),
+                                          (m) async => await uploadData(m.storagePath, m.bytes),
                                     ),
                                   ))
                                       .where((u) => u != null)
@@ -378,15 +378,10 @@ class _ProfileEditPageWidgetState extends State<ProfileEditPageWidget> {
                                 } finally {
                                   _model.isDataUploading2 = false;
                                 }
-                                if (selectedUploadedFiles.length ==
-                                        selectedMedia.length &&
-                                    downloadUrls.length ==
-                                        selectedMedia.length) {
+                                if (selectedUploadedFiles.length == selectedMedia.length && downloadUrls.length == selectedMedia.length) {
                                   safeSetState(() {
-                                    _model.uploadedLocalFile2 =
-                                        selectedUploadedFiles.first;
-                                    _model.uploadedFileUrl2 =
-                                        downloadUrls.first;
+                                    _model.uploadedLocalFile2 = selectedUploadedFiles.first;
+                                    _model.uploadedFileUrl2 = downloadUrls.first;
                                   });
                                 } else {
                                   safeSetState(() {});
@@ -395,13 +390,9 @@ class _ProfileEditPageWidgetState extends State<ProfileEditPageWidget> {
                               }
                             }
 
-                            await currentUserReference!
-                                .update(createUserRecordData(
+                            await currentUserReference!.update(createUserRecordData(
                               displayName: _model.textController.text,
-                              photoUrl: _model.uploadedFileUrl2 != null &&
-                                      _model.uploadedFileUrl2 != ''
-                                  ? _model.uploadedFileUrl2
-                                  : currentUserPhoto,
+                              photoUrl: _model.uploadedFileUrl2 != null && _model.uploadedFileUrl2 != '' ? _model.uploadedFileUrl2 : currentUserPhoto,
                             ));
 
                             context.pushNamed('ProfileCategoriesPage');

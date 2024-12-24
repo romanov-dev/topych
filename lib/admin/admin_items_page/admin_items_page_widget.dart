@@ -488,6 +488,7 @@ class _AdminItemsPageWidgetState extends State<AdminItemsPageWidget> {
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: listViewItemRecordList.length,
                             separatorBuilder: (_, __) => SizedBox(height: 20.0),
                             itemBuilder: (context, listViewIndex) {

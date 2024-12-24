@@ -67,13 +67,11 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 8.0, 24.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: FlutterFlowTheme.of(context).secondaryBackground,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Padding(
@@ -99,8 +97,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      if (currentUserPhoto != null &&
-                                          currentUserPhoto != '')
+                                      if (currentUserPhoto != null && currentUserPhoto != '')
                                         AuthUserStreamWidget(
                                           builder: (context) => Container(
                                             width: 200.0,
@@ -120,19 +117,15 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         AuthUserStreamWidget(
                                           builder: (context) => Text(
                                             currentUserDisplayName,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   fontFamily: 'involve',
                                                   fontSize: 18.0,
                                                   letterSpacing: 0.0,
@@ -142,23 +135,17 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 4.0, 0.0, 0.0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                                           child: AuthUserStreamWidget(
                                             builder: (context) => Text(
                                               currentPhoneNumber,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'involve',
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: false,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'involve',
+                                                    fontSize: 14.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts: false,
+                                                  ),
                                             ),
                                           ),
                                         ),
@@ -169,6 +156,39 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                               ],
                             ),
                           ),
+                        ),
+                      ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          GoRouter.of(context).prepareAuthEvent();
+                          await authManager.signOut();
+                          GoRouter.of(context).clearRedirectLocation();
+                          context.goNamedAuth(
+                            'MainPage',
+                            context.mounted,
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 0),
+                              ),
+                            },
+                          );
+                        },
+                        text: 'Logout',
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'involve',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                                useGoogleFonts: false,
+                              ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ],

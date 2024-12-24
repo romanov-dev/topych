@@ -89,10 +89,10 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                         '-',
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'involve',
-                            letterSpacing: 0.0,
-                            useGoogleFonts: false,
-                          ),
+                        fontFamily: 'involve',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
                     ),
                     Text(
                       valueOrDefault<String>(
@@ -100,17 +100,20 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                         '-',
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'involve',
-                            letterSpacing: 0.0,
-                            useGoogleFonts: false,
-                          ),
+                        fontFamily: 'involve',
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
                     ),
                   ],
                 ),
               ),
-              FFButtonWidget(
-                onPressed: () async {
-                  var confirmDialogResponse = await showDialog<bool>(
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  FFButtonWidget(
+                    onPressed: () async {
+                      var confirmDialogResponse = await showDialog<bool>(
                         context: context,
                         builder: (alertDialogContext) {
                           return WebViewAware(
@@ -118,13 +121,13 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                               title: Text('Del?'),
                               actions: [
                                 TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext, false),
+                                  onPressed: () => Navigator.pop(
+                                      alertDialogContext, false),
                                   child: Text('Cancel'),
                                 ),
                                 TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext, true),
+                                  onPressed: () => Navigator.pop(
+                                      alertDialogContext, true),
                                   child: Text('Confirm'),
                                 ),
                               ],
@@ -132,27 +135,65 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                           );
                         },
                       ) ??
-                      false;
-                  if (confirmDialogResponse) {
-                    await widget!.item!.reference.delete();
-                  }
-                },
-                text: 'Delete',
-                options: FFButtonOptions(
-                  height: 40.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  iconPadding:
+                          false;
+                      if (confirmDialogResponse) {
+                        await widget!.item!.reference.delete();
+                      }
+                    },
+                    text: 'Delete',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                      FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily: 'involve',
                         color: Colors.white,
                         letterSpacing: 0.0,
                         useGoogleFonts: false,
                       ),
-                  elevation: 0.0,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+                      elevation: 0.0,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      context.pushNamed(
+                        'AdminItemVariantsPage',
+                        queryParameters: {
+                          'item': serializeParam(
+                            widget!.item,
+                            ParamType.Document,
+                          ),
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          'item': widget!.item,
+                        },
+                      );
+                    },
+                    text: 'variants',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                      FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'involve',
+                        color: Colors.white,
+                        letterSpacing: 0.0,
+                        useGoogleFonts: false,
+                      ),
+                      elevation: 0.0,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -177,18 +218,18 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'involve',
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
+                              fontFamily: 'involve',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
                             hintText: 'price',
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'involve',
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
+                              fontFamily: 'involve',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -222,11 +263,11 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                                 .secondaryBackground,
                           ),
                           style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'involve',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'involve',
+                            letterSpacing: 0.0,
+                            useGoogleFonts: false,
+                          ),
                           cursorColor: FlutterFlowTheme.of(context).primaryText,
                           validator: _model.textController1Validator
                               .asValidator(context),
@@ -246,18 +287,18 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'involve',
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
+                              fontFamily: 'involve',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
                             hintText: 'priceDiscounted',
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'involve',
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
+                              fontFamily: 'involve',
+                              letterSpacing: 0.0,
+                              useGoogleFonts: false,
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -291,11 +332,11 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                                 .secondaryBackground,
                           ),
                           style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'involve',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'involve',
+                            letterSpacing: 0.0,
+                            useGoogleFonts: false,
+                          ),
                           cursorColor: FlutterFlowTheme.of(context).primaryText,
                           validator: _model.textController2Validator
                               .asValidator(context),
@@ -309,23 +350,23 @@ class _AdminItemCellWidgetState extends State<AdminItemCellWidget> {
                     await widget!.item!.reference.update(createItemRecordData(
                       price: double.tryParse(_model.textController1.text),
                       priceDiscounted:
-                          double.tryParse(_model.textController2.text),
+                      double.tryParse(_model.textController2.text),
                     ));
                   },
                   text: 'Update',
                   options: FFButtonOptions(
                     height: 40.0,
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'involve',
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                          useGoogleFonts: false,
-                        ),
+                      fontFamily: 'involve',
+                      color: Colors.white,
+                      letterSpacing: 0.0,
+                      useGoogleFonts: false,
+                    ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(8.0),
                   ),

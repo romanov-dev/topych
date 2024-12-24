@@ -18,12 +18,10 @@ class ProfileCategoriesPageWidget extends StatefulWidget {
   const ProfileCategoriesPageWidget({super.key});
 
   @override
-  State<ProfileCategoriesPageWidget> createState() =>
-      _ProfileCategoriesPageWidgetState();
+  State<ProfileCategoriesPageWidget> createState() => _ProfileCategoriesPageWidgetState();
 }
 
-class _ProfileCategoriesPageWidgetState
-    extends State<ProfileCategoriesPageWidget> {
+class _ProfileCategoriesPageWidgetState extends State<ProfileCategoriesPageWidget> {
   late ProfileCategoriesPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -70,13 +68,10 @@ class _ProfileCategoriesPageWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 8.0, 24.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
                           child: Text(
                             'Категории товаров',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'involve',
                                   fontSize: 26.0,
                                   letterSpacing: 0.0,
@@ -86,14 +81,11 @@ class _ProfileCategoriesPageWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 8.0, 24.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
                           child: Text(
                             'Выберите категорию товаров, которая Вас интересует',
                             textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'involve',
                                   fontSize: 18.0,
                                   letterSpacing: 0.0,
@@ -103,7 +95,10 @@ class _ProfileCategoriesPageWidgetState
                           ),
                         ),
                         StreamBuilder<List<CategoryRecord>>(
-                          stream: queryCategoryRecord(),
+                          stream: queryCategoryRecord(
+                            queryBuilder: (categoryRecord) =>
+                                categoryRecord.orderBy('index'),
+                          ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -119,41 +114,30 @@ class _ProfileCategoriesPageWidgetState
                                 ),
                               );
                             }
-                            List<CategoryRecord> listViewCategoryRecordList =
-                                snapshot.data!;
+                            List<CategoryRecord> listViewCategoryRecordList = snapshot.data!;
 
                             return ListView.separated(
-                              padding: EdgeInsets.fromLTRB(
-                                0,
-                                56.0,
-                                0,
-                                24.0,
-                              ),
+                              padding: const EdgeInsets.fromLTRB(0, 56.0, 0, 24.0),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: listViewCategoryRecordList.length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 24.0),
+                              separatorBuilder: (_, __) => SizedBox(height: 24.0),
                               itemBuilder: (context, listViewIndex) {
-                                final listViewCategoryRecord =
-                                    listViewCategoryRecordList[listViewIndex];
+                                final listViewCategoryRecord = listViewCategoryRecordList[listViewIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (_model.categoriesSelected.contains(
-                                          listViewCategoryRecord.reference)) {
-                                        _model.removeFromCategoriesSelected(
-                                            listViewCategoryRecord.reference);
+                                      if (_model.categoriesSelected.contains(listViewCategoryRecord.reference)) {
+                                        _model.removeFromCategoriesSelected(listViewCategoryRecord.reference);
                                         safeSetState(() {});
                                       } else {
-                                        _model.addToCategoriesSelected(
-                                            listViewCategoryRecord.reference);
+                                        _model.addToCategoriesSelected(listViewCategoryRecord.reference);
                                         safeSetState(() {});
                                       }
                                     },
@@ -161,42 +145,30 @@ class _ProfileCategoriesPageWidgetState
                                       width: double.infinity,
                                       height: 62.0,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                         border: Border.all(
                                           color: Color(0xFFEEEEEE),
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 20.0, 0.0),
+                                        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             GeneralCheckboxWidget(
-                                              key: Key(
-                                                  'Key192_${listViewIndex}_of_${listViewCategoryRecordList.length}'),
-                                              checked: _model.categoriesSelected
-                                                  .contains(
-                                                      listViewCategoryRecord
-                                                          .reference),
+                                              key: Key('Key192_${listViewIndex}_of_${listViewCategoryRecordList.length}'),
+                                              checked: _model.categoriesSelected.contains(listViewCategoryRecord.reference),
                                             ),
                                             Expanded(
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 0.0, 0.0),
+                                                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                                                 child: Text(
                                                   listViewCategoryRecord.name,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                         fontFamily: 'involve',
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                                        fontWeight: FontWeight.w600,
                                                         useGoogleFonts: false,
                                                       ),
                                                 ),

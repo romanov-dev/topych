@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:t_o_p_y_c_h_mobile/backend/schema/structs/item_variant_type_struct.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
@@ -10,9 +11,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ItemRecord extends FirestoreRecord {
   ItemRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+      DocumentReference reference,
+      Map<String, dynamic> data,
+      ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -66,6 +67,11 @@ class ItemRecord extends FirestoreRecord {
   int get buyTimes => _buyTimes ?? 0;
   bool hasBuyTimes() => _buyTimes != null;
 
+  // "variants" field.
+  List<ItemVariantTypeStruct>? _variants;
+  List<ItemVariantTypeStruct> get variants => _variants ?? const [];
+  bool hasVariants() => _variants != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _category = snapshotData['category'] as DocumentReference?;
@@ -77,6 +83,10 @@ class ItemRecord extends FirestoreRecord {
     _discount = castToType<double>(snapshotData['discount']);
     _rates = getDataList(snapshotData['rates']);
     _buyTimes = castToType<int>(snapshotData['buyTimes']);
+    _variants = getStructList(
+      snapshotData['variants'],
+      ItemVariantTypeStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -89,14 +99,14 @@ class ItemRecord extends FirestoreRecord {
       ref.get().then((s) => ItemRecord.fromSnapshot(s));
 
   static ItemRecord fromSnapshot(DocumentSnapshot snapshot) => ItemRecord._(
-        snapshot.reference,
-        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
-      );
+    snapshot.reference,
+    mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+  );
 
   static ItemRecord getDocumentFromData(
-    Map<String, dynamic> data,
-    DocumentReference reference,
-  ) =>
+      Map<String, dynamic> data,
+      DocumentReference reference,
+      ) =>
       ItemRecord._(reference, mapFromFirestore(data));
 
   @override
@@ -109,7 +119,7 @@ class ItemRecord extends FirestoreRecord {
   @override
   bool operator ==(other) =>
       other is ItemRecord &&
-      reference.path.hashCode == other.reference.path.hashCode;
+          reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createItemRecordData({
@@ -153,22 +163,24 @@ class ItemRecordDocumentEquality implements Equality<ItemRecord> {
         e1?.priceDiscounted == e2?.priceDiscounted &&
         e1?.discount == e2?.discount &&
         listEquality.equals(e1?.rates, e2?.rates) &&
-        e1?.buyTimes == e2?.buyTimes;
+        e1?.buyTimes == e2?.buyTimes &&
+        listEquality.equals(e1?.variants, e2?.variants);
   }
 
   @override
   int hash(ItemRecord? e) => const ListEquality().hash([
-        e?.name,
-        e?.category,
-        e?.images,
-        e?.store,
-        e?.description,
-        e?.price,
-        e?.priceDiscounted,
-        e?.discount,
-        e?.rates,
-        e?.buyTimes
-      ]);
+    e?.name,
+    e?.category,
+    e?.images,
+    e?.store,
+    e?.description,
+    e?.price,
+    e?.priceDiscounted,
+    e?.discount,
+    e?.rates,
+    e?.buyTimes,
+    e?.variants
+  ]);
 
   @override
   bool isValidKey(Object? o) => o is ItemRecord;

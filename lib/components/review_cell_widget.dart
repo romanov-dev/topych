@@ -50,7 +50,7 @@ class _ReviewCellWidgetState extends State<ReviewCellWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
             blurRadius: 60.0,
@@ -151,7 +151,7 @@ class _ReviewCellWidgetState extends State<ReviewCellWidget> {
                                   0.0, 2.0, 0.0, 0.0),
                               child: Text(
                                 dateTimeFormat(
-                                    "d/M H:mm", userUserRecord.createdTime!),
+                                    "d MMM yyyy, H:mm", userUserRecord.createdTime!),
                                 maxLines: 1,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium

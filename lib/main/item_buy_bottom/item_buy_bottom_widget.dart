@@ -1,3 +1,5 @@
+import '../../backend/schema/structs/item_variant_type_struct.dart';
+import '../item_page/item_page_widget.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
@@ -19,12 +21,15 @@ export 'item_buy_bottom_model.dart';
 class ItemBuyBottomWidget extends StatefulWidget {
   const ItemBuyBottomWidget({
     super.key,
-    required this.parameter1,
-    this.parameter2,
-  });
+    bool? fromBuyView,
+    required this.buyObject,
+    required this.onUpdate
+  }): fromBuyView = fromBuyView ?? false;
 
-  final DocumentReference? parameter1;
-  final ItemRecord? parameter2;
+  final bool fromBuyView;
+
+  final BuyVariantObject buyObject;
+  final Function() onUpdate;
 
   @override
   State<ItemBuyBottomWidget> createState() => _ItemBuyBottomWidgetState();
@@ -57,7 +62,7 @@ class _ItemBuyBottomWidgetState extends State<ItemBuyBottomWidget> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        // color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0.0, 14.0, 0.0, 14.0),
@@ -71,46 +76,49 @@ class _ItemBuyBottomWidgetState extends State<ItemBuyBottomWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  if (loggedIn) {
-                    if ((currentUserDocument?.favoriteItems?.toList() ?? [])
-                        .contains(widget!.parameter1)) {
-                      await currentUserReference!.update({
-                        ...mapToFirestore(
-                          {
-                            'favorite_items':
-                                FieldValue.arrayRemove([widget!.parameter1]),
-                          },
-                        ),
-                      });
-                    } else {
-                      await currentUserReference!.update({
-                        ...mapToFirestore(
-                          {
-                            'favorite_items':
-                                FieldValue.arrayUnion([widget!.parameter1]),
-                          },
-                        ),
-                      });
-                    }
-                  } else {
-                    await showDialog(
-                      barrierColor: Color(0xA8000000),
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (dialogContext) {
-                        return Dialog(
-                          elevation: 0,
-                          insetPadding: EdgeInsets.zero,
-                          backgroundColor: Colors.transparent,
-                          alignment: AlignmentDirectional(0.0, 0.0)
-                              .resolve(Directionality.of(context)),
-                          child: WebViewAware(
-                            child: NeedAuthViewWidget(),
+
+                    if (loggedIn) {
+                      if ((currentUserDocument?.favoriteItems?.toList() ?? [])
+                          .contains(widget.buyObject.item!.reference)) {
+                        await currentUserReference!.update({
+                          ...mapToFirestore(
+                            {
+                              'favorite_items':
+                              FieldValue.arrayRemove([widget!.buyObject.item!.reference]),
+                            },
                           ),
-                        );
-                      },
-                    );
-                  }
+                        });
+                      } else {
+                        await currentUserReference!.update({
+                          ...mapToFirestore(
+                            {
+                              'favorite_items':
+                              FieldValue.arrayUnion([widget!.buyObject.item!.reference]),
+                            },
+                          ),
+                        });
+                      }
+                    } else {
+                      await showDialog(
+                        barrierColor: const Color(0xA8000000),
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (dialogContext) {
+                          return Dialog(
+                            elevation: 0,
+                            insetPadding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            alignment: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            child: WebViewAware(
+                              child: NeedAuthViewWidget(),
+                            ),
+                          );
+                        },
+                      );
+                    }
+
+
                 },
                 child: Container(
                   width: 56.0,
@@ -119,41 +127,43 @@ class _ItemBuyBottomWidgetState extends State<ItemBuyBottomWidget> {
                     color: Color(0xFFEAEAEA),
                     shape: BoxShape.circle,
                   ),
-                  child: Stack(
-                    children: [
-                      if (!(currentUserDocument?.favoriteItems?.toList() ?? [])
-                          .contains(widget!.parameter1))
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: AuthUserStreamWidget(
-                            builder: (context) => ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: SvgPicture.asset(
-                                'assets/images/Heart.svg',
-                                width: 28.0,
-                                height: 28.0,
-                                fit: BoxFit.contain,
+                  child: AuthUserStreamWidget(
+                    builder: (context) => Stack(
+                      children: [
+                        if (!(currentUserDocument?.favoriteItems?.toList() ?? [])
+                            .contains(widget!.buyObject.item!.reference))
+                          Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: AuthUserStreamWidget(
+                              builder: (context) => ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: SvgPicture.asset(
+                                  'assets/images/Heart.svg',
+                                  width: 28.0,
+                                  height: 28.0,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      if ((currentUserDocument?.favoriteItems?.toList() ?? [])
-                          .contains(widget!.parameter1))
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: AuthUserStreamWidget(
-                            builder: (context) => ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: SvgPicture.asset(
-                                'assets/images/Heart1.svg',
-                                width: 28.0,
-                                height: 28.0,
-                                fit: BoxFit.contain,
+                        if ((currentUserDocument?.favoriteItems?.toList() ?? [])
+                            .contains(widget!.buyObject.item!.reference))
+                          Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: AuthUserStreamWidget(
+                              builder: (context) => ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: SvgPicture.asset(
+                                  'assets/images/Heart1.svg',
+                                  width: 28.0,
+                                  height: 28.0,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -166,47 +176,59 @@ class _ItemBuyBottomWidgetState extends State<ItemBuyBottomWidget> {
                   child: GeneralButtonWidget(
                     title: 'Купить',
                     isActive: true,
-                    bgColor: Color(0xFFEAEAEA),
+                    bgColor: const Color(0xFFEAEAEA),
                     textColor: FlutterFlowTheme.of(context).primaryText,
                     onTap: () async {
-                      if (loggedIn) {
-                        await showModalBottomSheet(
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          barrierColor: Color(0x5F000000),
-                          enableDrag: false,
-                          context: context,
-                          builder: (context) {
-                            return WebViewAware(
-                              child: Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: ItemBuyViewWidget(
-                                  item: widget!.parameter2!,
-                                  buyType: 0,
-                                ),
-                              ),
-                            );
-                          },
-                        ).then((value) => safeSetState(() {}));
-                      } else {
-                        await showDialog(
-                          barrierColor: Color(0xA8000000),
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (dialogContext) {
-                            return Dialog(
-                              elevation: 0,
-                              insetPadding: EdgeInsets.zero,
-                              backgroundColor: Colors.transparent,
-                              alignment: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              child: WebViewAware(
-                                child: NeedAuthViewWidget(),
-                              ),
-                            );
-                          },
-                        );
+                      if (widget.buyObject.variantSelected == null && (widget.buyObject.item?.variants ?? []).isNotEmpty) {
+                        return;
                       }
+
+                      if (widget.fromBuyView) {
+
+                      }
+                      else {
+                        if (loggedIn) {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            barrierColor: const Color(0x5F000000),
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return WebViewAware(
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: ItemBuyViewWidget(
+                                    buyType: 0,
+                                    buyObject: widget.buyObject,
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        } else {
+                          await showDialog(
+                            barrierColor: Color(0xA8000000),
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                elevation: 0,
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                alignment: AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                child: WebViewAware(
+                                  child: NeedAuthViewWidget(),
+                                ),
+                              );
+                            },
+                          );
+
+                          widget.onUpdate();
+                        }
+                      }
+
                     },
                   ),
                 ),
@@ -220,47 +242,56 @@ class _ItemBuyBottomWidgetState extends State<ItemBuyBottomWidget> {
                   child: GeneralButtonWidget(
                     title: 'В корзину',
                     isActive: true,
-                    bgColor: Color(0xFFEAEAEA),
-                    textColor: FlutterFlowTheme.of(context).primaryText,
                     onTap: () async {
-                      if (loggedIn) {
-                        await showModalBottomSheet(
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          barrierColor: Color(0x5F000000),
-                          enableDrag: false,
-                          context: context,
-                          builder: (context) {
-                            return WebViewAware(
-                              child: Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: ItemBuyViewWidget(
-                                  item: widget!.parameter2!,
-                                  buyType: 1,
-                                ),
-                              ),
-                            );
-                          },
-                        ).then((value) => safeSetState(() {}));
-                      } else {
-                        await showDialog(
-                          barrierColor: Color(0xA8000000),
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (dialogContext) {
-                            return Dialog(
-                              elevation: 0,
-                              insetPadding: EdgeInsets.zero,
-                              backgroundColor: Colors.transparent,
-                              alignment: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              child: WebViewAware(
-                                child: NeedAuthViewWidget(),
-                              ),
-                            );
-                          },
-                        );
+                      if (widget.buyObject.variantSelected == null && (widget.buyObject.item?.variants ?? []).isNotEmpty) {
+                        return;
                       }
+
+                      if (widget.fromBuyView) {
+
+                      }
+                      else {
+                        if (loggedIn) {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            barrierColor: Color(0x5F000000),
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return WebViewAware(
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: ItemBuyViewWidget(
+                                    buyType: 1,
+                                    buyObject: widget.buyObject,
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        } else {
+                          await showDialog(
+                            barrierColor: Color(0xA8000000),
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                elevation: 0,
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                alignment: AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                child: WebViewAware(
+                                  child: NeedAuthViewWidget(),
+                                ),
+                              );
+                            },
+                          );
+                          widget.onUpdate();
+                        }
+                      }
+
                     },
                   ),
                 ),

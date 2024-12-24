@@ -315,17 +315,17 @@ class _LoginCodePageWidgetState extends State<LoginCodePageWidget> {
                                 context: context,
                                 phoneNumber: phoneNumberVal,
                                 onCodeSent: (context) async {
-                                  context.goNamedAuth(
-                                    'LoginCodePage',
-                                    context.mounted,
-                                    queryParameters: {
-                                      'phone': serializeParam(
-                                        widget!.phone,
-                                        ParamType.String,
-                                      ),
-                                    }.withoutNulls,
-                                    ignoreRedirect: true,
-                                  );
+                                  // context.goNamedAuth(
+                                  //   'LoginCodePage',
+                                  //   context.mounted,
+                                  //   queryParameters: {
+                                  //     'phone': serializeParam(
+                                  //       widget!.phone,
+                                  //       ParamType.String,
+                                  //     ),
+                                  //   }.withoutNulls,
+                                  //   ignoreRedirect: true,
+                                  // );
                                 },
                               );
 

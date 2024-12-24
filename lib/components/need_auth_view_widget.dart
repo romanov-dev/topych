@@ -65,7 +65,7 @@ class _NeedAuthViewWidgetState extends State<NeedAuthViewWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                   child: Text(
-                    'Пройдите регистрацию!',
+                    'Пройдите регистрацию или войдите!',
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'involve',
@@ -79,7 +79,7 @@ class _NeedAuthViewWidgetState extends State<NeedAuthViewWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: Text(
-                    'Чтобы выполнить следующее действие, пройдите регистрацию',
+                    'Чтобы выполнить следующее действие, пройдите регистрацию или войдите',
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'involve',
@@ -96,7 +96,7 @@ class _NeedAuthViewWidgetState extends State<NeedAuthViewWidget> {
                     model: _model.generalButtonModel1,
                     updateCallback: () => safeSetState(() {}),
                     child: GeneralButtonWidget(
-                      title: 'Регистрация',
+                      title: 'Регистрация/Вход',
                       isActive: true,
                       onTap: () async {
                         context.pushNamed('LoginPage');

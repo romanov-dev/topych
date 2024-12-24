@@ -1,3 +1,4 @@
+import '../reviewsHeader.dart';
 import '/backend/backend.dart';
 import '/components/review_cell_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -104,11 +105,11 @@ class _ReviewsPageWidgetState extends State<ReviewsPageWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
                                 child: Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(),
+                                  child: ReviewsHeaderWidget(item: containerItemRecord),
                                 ),
                               ),
                               Expanded(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '../../admin/admin_item_variants_page/admin_item_variants_page_widget.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 
@@ -273,6 +274,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               isList: false,
               collectionNamePath: ['Category'],
             ),
+            type: params.getParam(
+              'type',
+              ParamType.int,
+            ),
             store: params.getParam(
               'store',
               ParamType.DocumentReference,
@@ -298,12 +303,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
               isList: true,
             ),
-            filters: params.getParam(
-              'filters',
-              ParamType.DataStruct,
-              isList: false,
-              structBuilder: FilterTypeStruct.fromSerializableMap,
-            ),
           ),
         ),
         FFRoute(
@@ -322,12 +321,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'values',
               ParamType.Document,
               isList: true,
-            ),
-            filters: params.getParam(
-              'filters',
-              ParamType.DataStruct,
-              isList: false,
-              structBuilder: FilterTypeStruct.fromSerializableMap,
             ),
           ),
         ),
@@ -352,6 +345,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.DocumentReference,
               isList: false,
               collectionNamePath: ['Item'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'AdminItemVariantsPage',
+          path: '/adminItemVariantsPage',
+          asyncParams: {
+            'item': getDoc(['Item'], ItemRecord.fromSnapshot),
+          },
+          builder: (context, params) => AdminItemVariantsPageWidget(
+            item: params.getParam(
+              'item',
+              ParamType.Document,
             ),
           ),
         )

@@ -117,12 +117,20 @@ class _Navbar03TextSearchWidgetState extends State<Navbar03TextSearchWidget> {
               width: 60.0,
               height: double.infinity,
               decoration: BoxDecoration(),
-              child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: FaIcon(
-                  FontAwesomeIcons.search,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 20.0,
+              child: InkWell(
+                onTap: () {
+                  if (widget.searchOnTap != null) {
+                    widget.searchOnTap!();
+                  }
+
+                },
+                child: Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: FaIcon(
+                    FontAwesomeIcons.search,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 20.0,
+                  ),
                 ),
               ),
             ),

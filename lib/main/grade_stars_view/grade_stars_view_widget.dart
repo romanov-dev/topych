@@ -50,6 +50,14 @@ class _GradeStarsViewWidgetState extends State<GradeStarsViewWidget> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (widget!.grade == 0)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(0.0),
+              child: SvgPicture.asset(
+                'assets/images/grade0.svg',
+                fit: BoxFit.cover,
+              ),
+            ),
           if (widget!.grade == 1)
             ClipRRect(
               borderRadius: BorderRadius.circular(0.0),

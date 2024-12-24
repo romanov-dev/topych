@@ -1,3 +1,5 @@
+import 'package:t_o_p_y_c_h_mobile/main/items_search_page/items_search_page_widget.dart';
+
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/general_checkbox_widget.dart';
@@ -17,20 +19,18 @@ class ItemFiltersParamPageWidget extends StatefulWidget {
     super.key,
     required this.param,
     required this.values,
-    required this.filters,
+    this.filterData,
   });
 
   final ParamRecord? param;
   final List<ParamValueRecord>? values;
-  final FilterTypeStruct? filters;
+  final FilterData? filterData;
 
   @override
-  State<ItemFiltersParamPageWidget> createState() =>
-      _ItemFiltersParamPageWidgetState();
+  State<ItemFiltersParamPageWidget> createState() => _ItemFiltersParamPageWidgetState();
 }
 
-class _ItemFiltersParamPageWidgetState
-    extends State<ItemFiltersParamPageWidget> {
+class _ItemFiltersParamPageWidgetState extends State<ItemFiltersParamPageWidget> {
   late ItemFiltersParamPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -85,8 +85,7 @@ class _ItemFiltersParamPageWidgetState
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: List.generate(valuesList.length,
-                              (valuesListIndex) {
+                          children: List.generate(valuesList.length, (valuesListIndex) {
                             final valuesListItem = valuesList[valuesListIndex];
                             return InkWell(
                               splashColor: Colors.transparent,
@@ -94,36 +93,40 @@ class _ItemFiltersParamPageWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.safePop();
+                                setState(() {
+                                  var value = ParamValueStruct(
+                                    param: widget!.param?.reference,
+                                    value: valuesListItem.value,
+                                  );
+
+                                  if ((widget.filterData?.values ?? []).contains(value)) {
+                                    widget.filterData?.values.removeWhere((e) => e == value);
+                                  } else {
+                                    widget.filterData?.values.add(value);
+                                  }
+                                });
                               },
                               child: Container(
                                 height: 46.0,
                                 decoration: BoxDecoration(),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 4.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 4.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       GeneralCheckboxWidget(
-                                        key: Key(
-                                            'Keyf4g_${valuesListIndex}_of_${valuesList.length}'),
-                                        checked: widget!.filters?.values
-                                            ?.contains(ParamValueStruct(
+                                        key: Key('Keyf4g_${valuesListIndex}_of_${valuesList.length}'),
+                                        checked: widget.filterData?.values?.contains(ParamValueStruct(
                                           param: widget!.param?.reference,
                                           value: valuesListItem.value,
                                         )),
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 0.0, 0.0, 0.0),
+                                          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                                           child: Text(
                                             valuesListItem.value,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   fontFamily: 'involve',
                                                   fontSize: 16.0,
                                                   letterSpacing: 0.0,

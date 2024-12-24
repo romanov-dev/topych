@@ -1,3 +1,5 @@
+import 'package:t_o_p_y_c_h_mobile/components/networkImageView.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -78,21 +80,25 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      widget!.item!.images.firstOrNull!,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
+                    // child: Image.network(
+                    //   widget!.item!.images.firstOrNull!,
+                    //   width: double.infinity,
+                    //   height: double.infinity,
+                    //   fit: BoxFit.cover,
+                    // ),
+                    child: NetworkImageView(
+                        image: widget!.item!.images.firstOrNull!,
+                        width: double.infinity,
+                        height: double.infinity,
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                     child: Container(
                       height: 20.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(0.0),
                           bottomRight: Radius.circular(100.0),
                           topLeft: Radius.circular(0.0),
@@ -100,14 +106,12 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                         ),
                       ),
                       child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 4.0, 0.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 0.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: SvgPicture.asset(
@@ -120,9 +124,7 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                             ),
                             Text(
                               functions.getRate(widget!.item!.rates.toList()),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'involve',
                                     fontSize: 10.0,
                                     letterSpacing: 0.0,
@@ -138,22 +140,18 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                   Align(
                     alignment: AlignmentDirectional(1.0, -1.0),
                     child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 7.0, 6.0, 0.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 7.0, 6.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if ((currentUserDocument?.favoriteItems?.toList() ??
-                                  [])
-                              .contains(widget!.item?.reference)) {
+                          if ((currentUserDocument?.favoriteItems?.toList() ?? []).contains(widget!.item?.reference)) {
                             await currentUserReference!.update({
                               ...mapToFirestore(
                                 {
-                                  'favorite_items': FieldValue.arrayRemove(
-                                      [widget!.item?.reference]),
+                                  'favorite_items': FieldValue.arrayRemove([widget!.item?.reference]),
                                 },
                               ),
                             });
@@ -161,8 +159,7 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                             await currentUserReference!.update({
                               ...mapToFirestore(
                                 {
-                                  'favorite_items': FieldValue.arrayUnion(
-                                      [widget!.item?.reference]),
+                                  'favorite_items': FieldValue.arrayUnion([widget!.item?.reference]),
                                 },
                               ),
                             });
@@ -171,46 +168,53 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                         child: Container(
                           width: 32.0,
                           height: 32.0,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
                           child: Stack(
                             children: [
-                              if (!(currentUserDocument?.favoriteItems
-                                          ?.toList() ??
-                                      [])
-                                  .contains(widget!.item?.reference))
                                 Align(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: AuthUserStreamWidget(
-                                    builder: (context) => ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/Heart.svg',
-                                        width: 17.0,
-                                        height: 17.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                    builder: (context) {
+                                      if (!(currentUserDocument?.favoriteItems?.toList() ?? []).contains(widget!.item?.reference)) {
+                                        return ClipRRect(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          child: SvgPicture.asset(
+                                            'assets/images/Heart.svg',
+                                            width: 17.0,
+                                            height: 17.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                      }
+                                      else {
+                                        return const SizedBox.shrink();
+                                      }
+                                    },
                                   ),
                                 ),
-                              if ((currentUserDocument?.favoriteItems
-                                          ?.toList() ??
-                                      [])
-                                  .contains(widget!.item?.reference))
+
                                 Align(
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: AuthUserStreamWidget(
-                                    builder: (context) => ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/Heart1.svg',
-                                        width: 17.0,
-                                        height: 17.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                    builder: (context) {
+                                      if ((currentUserDocument?.favoriteItems?.toList() ?? []).contains(widget!.item?.reference)) {
+                                        return ClipRRect(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          child: SvgPicture.asset(
+                                            'assets/images/Heart1.svg',
+                                            width: 17.0,
+                                            height: 17.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                      }
+                                      else {
+                                        return const SizedBox.shrink();
+                                      }
+                                    },
                                   ),
                                 ),
                             ],
@@ -232,11 +236,9 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      valueOrDefault<String>(
-                        widget!.item?.name,
-                        '-',
-                      ),
+                      widget!.item?.name ?? "-",
                       maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'involve',
                             fontSize: 16.0,
@@ -246,18 +248,14 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                           ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          if ((widget!.item?.price != null) &&
-                              (widget!.item!.price > 0.0))
+                          if ((widget!.item?.price != null) && (widget!.item!.price > 0.0))
                             Text(
                               functions.formatPrice(widget!.item!.price),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'involve',
                                     color: Color(0xFF9E9E9E),
                                     letterSpacing: 0.0,
@@ -267,11 +265,8 @@ class _ItemCellWidgetState extends State<ItemCellWidget> {
                                   ),
                             ),
                           Text(
-                            functions
-                                .formatPrice(widget!.item!.priceDiscounted),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            functions.formatPrice(widget!.item!.priceDiscounted),
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'involve',
                                   color: Color(0xFFFF981F),
                                   letterSpacing: 0.0,

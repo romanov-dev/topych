@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:t_o_p_y_c_h_mobile/index.dart';
+import 'package:t_o_p_y_c_h_mobile/main/items_search_page/items_search_page_widget.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main/items_sort_view/items_sort_view_widget.dart';
@@ -11,11 +15,15 @@ import 'items_sort_filter_view_model.dart';
 export 'items_sort_filter_view_model.dart';
 
 class ItemsSortFilterViewWidget extends StatefulWidget {
-  const ItemsSortFilterViewWidget({super.key});
+  const ItemsSortFilterViewWidget({super.key, this.onUpdate, required this.filterData, this.category});
+
+  final Function()? onUpdate;
+  final DocumentReference? category;
+
+  final FilterData filterData;
 
   @override
-  State<ItemsSortFilterViewWidget> createState() =>
-      _ItemsSortFilterViewWidgetState();
+  State<ItemsSortFilterViewWidget> createState() => _ItemsSortFilterViewWidgetState();
 }
 
 class _ItemsSortFilterViewWidgetState extends State<ItemsSortFilterViewWidget> {
@@ -78,6 +86,9 @@ class _ItemsSortFilterViewWidgetState extends State<ItemsSortFilterViewWidget> {
                           );
                         },
                       ).then((value) => safeSetState(() {}));
+                      if (widget.onUpdate != null) {
+                        widget.onUpdate!();
+                      }
                     },
                     child: Container(
                       height: double.infinity,
@@ -95,13 +106,10 @@ class _ItemsSortFilterViewWidgetState extends State<ItemsSortFilterViewWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 0.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Сортировать',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'involve',
                                     fontSize: 18.0,
                                     letterSpacing: 0.0,
@@ -123,7 +131,21 @@ class _ItemsSortFilterViewWidgetState extends State<ItemsSortFilterViewWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed('ItemsFilterPage');
+                        // await context.pushNamed('ItemsFilterPage');
+                        await Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => ItemsFilterPageWidget(
+                                filterData: widget.filterData,
+                                category: widget.category,
+                              ),
+                              fullscreenDialog: true
+                          ),
+                        );
+
+                        if (widget.onUpdate != null) {
+                          widget.onUpdate!();
+                        }
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -138,13 +160,10 @@ class _ItemsSortFilterViewWidgetState extends State<ItemsSortFilterViewWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 0.0, 0.0, 0.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Фильтр',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'involve',
                                     fontSize: 18.0,
                                     letterSpacing: 0.0,
